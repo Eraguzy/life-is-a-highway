@@ -55,10 +55,12 @@ then
 		mkdir "$temp"
 		echo "le dossier n'existe pas. Il vient d'être créé."	
 	else
+		echo "le dossier existe"
 		rm -r "$temp"	
 	fi
 else 
 	mkdir "$temp"
 	echo "le dossier n'existe pas. Il vient d'être créé."	
 fi	
+	
 
