@@ -35,7 +35,8 @@ do
 		"-t") t=1;;
 		"-l") l=1;;
 		"-s") s=1;;
-		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s";;
+		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s"
+		exit 4;;
 		*) echo " ${!i} existe pas";;
 	esac
 done
