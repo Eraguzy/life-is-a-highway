@@ -1,5 +1,10 @@
 #!/bin/bash
-
+#verifie le bon nombre d'argument
+if [ $# -lt 2 ]
+then
+	echo "Pas le bon nombre d'argument !"
+	exit 1
+fi 
 #verifie les arguments 
 d1=0
 d2=0
