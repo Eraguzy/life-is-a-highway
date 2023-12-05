@@ -41,3 +41,24 @@ do
 	esac
 done
 
+images='images'
+progc='progc'
+temp='temp'
+demo='demo'
+data='data'
+
+#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
+if [ -e  "$temp" ]
+then 
+	if [ ! -d "$temp" ]
+	then
+		mkdir "$temp"
+		echo "le dossier n'existe pas. Il vient d'être créé."	
+	else
+		rm -r "$temp"	
+	fi
+else 
+	mkdir "$temp"
+	echo "le dossier n'existe pas. Il vient d'être créé."	
+fi	
+
