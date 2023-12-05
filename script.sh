@@ -1,10 +1,25 @@
 #!/bin/bash
-#verifie le bon nombre d'argument
+#verifie le bon nombre d'arguments
 if [ $# -lt 2 ]
 then
-	echo "Pas le bon nombre d'argument !"
+	echo "Pas le bon nombre d'arguments !"
 	exit 1
-fi 
+fi
+
+if [ -e "$1" ]
+then
+    nom_fichier=$(basename "$1")
+    if [ "$nom_fichier" == "data.csv" ]; then
+        echo "Le chemin est bon."
+    else
+        echo "Le chemin existe mais n'est pas le chemin de data.csv."
+        exit 2
+    fi
+else
+    echo "Le chemin n'existe pas."
+    exit 3
+fi
+
 #verifie les arguments 
 d1=0
 d2=0
