@@ -47,7 +47,7 @@ temp='temp'
 demo='demo'
 data='data'
 
-#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
+#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé (ça fonctionne)
 if [ -e  "$temp" ]
 then 
 	if [ ! -d "$temp" ]
@@ -55,12 +55,13 @@ then
 		mkdir "$temp"
 		echo "le dossier n'existe pas. Il vient d'être créé."	
 	else
-		echo "le dossier existe. Il vient d'être vidé"
-		rm -r "$temp"	
+		echo "le dossier existe"
+		find "$temp" -mindepth 1 -delete
+		#rm -r "$temp"	
 	fi
 else 
 	mkdir "$temp"
 	echo "le dossier n'existe pas. Il vient d'être créé."	
-fi	
+fi
 	
 
