@@ -53,15 +53,28 @@ then
 	if [ ! -d "$temp" ]
 	then
 		mkdir "$temp"
-		echo "le dossier n'existe pas. Il vient d'être créé."	
+		echo "le dossier "$temp" n'existe pas. Il vient d'être créé."	
 	else
-		echo "le dossier existe"
+		echo "le dossier "$temp" existe et vient d'être vidé"
 		find "$temp" -mindepth 1 -delete
-		#rm -r "$temp"	
 	fi
 else 
 	mkdir "$temp"
-	echo "le dossier n'existe pas. Il vient d'être créé."	
+	echo "le dossier "$temp" n'existe pas. Il vient d'être créé."	
 fi
-	
+
+#verifie si le dossier image existe, sinon on le crée
+if [ -e  "$images" ]
+then 
+	if [ ! -d "$images" ]
+	then
+		mkdir "$images"
+		echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
+	else
+		echo "le dossier "$images" existe."	
+	fi
+else 
+	mkdir "$images"
+	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
+fi
 
