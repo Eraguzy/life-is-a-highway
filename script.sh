@@ -35,8 +35,46 @@ do
 		"-t") t=1;;
 		"-l") l=1;;
 		"-s") s=1;;
-		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s";;
+		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s"
+		exit 4;;
 		*) echo " ${!i} existe pas";;
 	esac
 done
+
+images='images'
+progc='progc'
+temp='temp'
+demo='demo'
+data='data'
+
+#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé (ça fonctionne)
+if [ -e  "$temp" ]
+then 
+	if [ ! -d "$temp" ]
+	then
+		mkdir "$temp"
+		echo "le dossier "$temp" n'existe pas. Il vient d'être créé."	
+	else
+		echo "le dossier "$temp" existe et vient d'être vidé"
+		find "$temp" -mindepth 1 -delete
+	fi
+else 
+	mkdir "$temp"
+	echo "le dossier "$temp" n'existe pas. Il vient d'être créé."	
+fi
+
+#verifie si le dossier image existe, sinon on le crée
+if [ -e  "$images" ]
+then 
+	if [ ! -d "$images" ]
+	then
+		mkdir "$images"
+		echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
+	else
+		echo "le dossier "$images" existe."	
+	fi
+else 
+	mkdir "$images"
+	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
+fi
 
