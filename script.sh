@@ -78,3 +78,18 @@ else
 	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
 fi
 
+#verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
+if [ -e "exec" ]
+then
+        echo "L'executable est présent"
+else
+        echo "L'executable n'est pas présent"
+        gcc -o exec progc/exec.c
+        if [ $? -eq 0 ]
+        then
+        	echo "Compilation réussie."
+        else
+        	echo "La compilation a échoué."
+        	exit 5
+        fi
+fi
