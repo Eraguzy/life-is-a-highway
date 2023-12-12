@@ -93,3 +93,27 @@ else
         	exit 5
         fi
 fi
+
+mesurer_temps_execution() {
+
+    # Enregistrez le moment de début
+    local start_time=$(date +%s)
+
+    # Appelez la fonction passée en paramètre
+    $1
+
+    # Enregistrez le moment de fin
+    local end_time=$(date +%s)
+
+    # Calculez la différence entre le moment de fin et le moment de début en secondes
+    local elapsed_time=$(echo "$end_time - $start_time" | bc)
+
+    # Affichez la durée d'exécution en secondes avec un détail
+    echo "La fonction a pris $elapsed_time secondes pour s'exécuter."
+}
+
+ma_fonction_a_mesurer() {
+    sleep 2
+}
+
+mesurer_temps_execution ma_fonction_a_mesurer
