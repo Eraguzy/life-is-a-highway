@@ -6,10 +6,11 @@ then
 	exit 1
 fi
 
-if [ -e "$1" ]
+if [ -e "$1" ] # verifie que le chemin est bon et que le fichier étudié porte le bon nom
 then
     nom_fichier=$(basename "$1")
-    if [ "$nom_fichier" == "data.csv" ]; then
+    if [ "$nom_fichier" == "data.csv" ]
+	then
         echo "Le chemin est bon."
     else
         echo "Le chemin existe mais n'est pas le chemin de data.csv."
@@ -20,7 +21,7 @@ else
     exit 3
 fi
 
-#verifie les arguments 
+#verifie les arguments : reste à 0 si l'option n'est pas activée
 d1=0
 d2=0
 t=0
@@ -36,7 +37,7 @@ do
 		"-l") l=1;;
 		"-s") s=1;;
 		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s"
-		exit 4;;
+		exit 4;; # quitte si y'a -h
 		*) echo " ${!i} existe pas";;
 	esac
 done
@@ -44,10 +45,8 @@ done
 images='images'
 progc='progc'
 temp='temp'
-demo='demo'
-data='data'
 
-#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé (ça fonctionne)
+#verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
 if [ -e  "$temp" ]
 then 
 	if [ ! -d "$temp" ]
@@ -79,13 +78,13 @@ else
 fi
 
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
-if [ -e "exec" ]
+if [ -e "progc/exec" ]
 then
-        echo "L'executable est présent"
+        echo "L'executable est présent."
 else
-        echo "L'executable n'est pas présent"
+        echo "L'executable n'est pas présent."
         gcc -o exec progc/exec.c
-        if [ $? -eq 0 ]
+        if [ $? -eq 0 ] # recup la valeur de retour de gcc
         then
         	echo "Compilation réussie."
         else
@@ -96,24 +95,14 @@ fi
 
 mesurer_temps_execution() {
 
-    # Enregistrez le moment de début
-    local start_time=$(date +%s)
+    local start_time=$(date +%s) # temps de depart
 
-    # Appelez la fonction passée en paramètre
-    $1
+    $1 # Appelez la fonction passée en paramètre
 
-    # Enregistrez le moment de fin
-    local end_time=$(date +%s)
+    local end_time=$(date +%s) # temps de fin
 
-    # Calculez la différence entre le moment de fin et le moment de début en secondes
-    local elapsed_time=$(echo "$end_time - $start_time" | bc)
+    local elapsed_time=$(echo "$end_time - $start_time" | bc) #diff entre fin et debut (bc car shell ne prend pas en compte les float de base)
 
-    # Affichez la durée d'exécution en secondes avec un détail
     echo "La fonction a pris $elapsed_time secondes pour s'exécuter."
 }
 
-ma_fonction_a_mesurer() {
-    sleep 2
-}
-
-mesurer_temps_execution ma_fonction_a_mesurer
