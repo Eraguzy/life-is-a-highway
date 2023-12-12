@@ -8,8 +8,7 @@ fi
 
 if [ -e "$1" ] # verifie que le chemin est bon et que le fichier étudié porte le bon nom
 then
-    nom_fichier=$(basename "$1")
-    if [ "$nom_fichier" == "data.csv" ]
+    if [ "$1" == "data/data.csv" ]; then
 	then
         echo "Le chemin est bon."
     else
