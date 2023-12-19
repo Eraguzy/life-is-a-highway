@@ -101,10 +101,10 @@ mesurer_temps_execution() {
 }
 
 traitement_d1() {
-	awk -F';' '$2 == 1' data/data.csv > etape1.csv
+	awk -F';' '$2 == 1' data/data.csv > temp/etape1.csv
 	#grep ";1;" data/data.csv > etape1.csv
 	
-	cut -d';' -f6 etape1.csv > d1temp.csv
+	cut -d';' -f6 temp/etape1.csv > temp/d1temp.csv
 	awk '{
 		# Compter les occurrences de chaque nom (sixième colonne)
 		count[$i]++
@@ -114,13 +114,13 @@ traitement_d1() {
 		for (prenom in count) {
 			print prenom, ";", count[prenom]
 		}
-	}' d1temp.csv \
+	}' temp/d1temp.csv \
 	| sort -k2 -t";" -n -r \
-	| head -n 10 > d1temp2.csv
+	| head -n 10 > temp/d1temp2.csv
 	
-	rm d1temp.csv
+	rm temp/d1temp.csv
 	
-	output_file="histogramme.png"
+	output_file="images/histogramme.png"
 
 	gnuplot <<-EOF
 	set terminal png size 1000,1000
@@ -136,7 +136,7 @@ traitement_d1() {
 	set ytics rotate by 90
 	set bmargin 13
 	
-	plot "d1temp2.csv" using 2:xtic(1) with boxes notitle
+	plot "temp/d1temp2.csv" using 2:xtic(1) with boxes notitle
 	EOF
 
 	convert -rotate 90 $output_file $output_file
@@ -149,3 +149,5 @@ if [ $d1 -eq 1 ]
 then
 	mesurer_temps_execution traitement_d1
 fi
+
+find "$temp" -mindepth 1 -delete
