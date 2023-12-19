@@ -150,10 +150,8 @@ then
 	mesurer_temps_execution traitement_d1
 fi
 
-find "$temp" -mindepth 1 -delete
-
 #TRAITEMENT L 
-if [ "$l" -eq 1 ]; then
+traitement_l() {
         # Utiliser awk pour calculer la somme des distances par trajet
         cut -d";" -f1,5 data/data.csv >cut.csv
 	LC_NUMERIC="C" awk -F";" '{
@@ -164,6 +162,12 @@ if [ "$l" -eq 1 ]; then
             	printf trajet ";" distance[trajet] "\n"
             }      
 }' cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > ltemp.csv
+}
 
+
+if [ "$l" -eq 1 ]
+then
+	mesurer_temps_execution traitement_l
 fi
+find "$temp" -mindepth 1 -delete
 
