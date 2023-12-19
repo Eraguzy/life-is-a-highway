@@ -45,6 +45,20 @@ images='images'
 progc='progc'
 temp='temp'
 
+echo "                      _____________________________________________________"
+echo "                      |                                                     |"
+echo "             _______  |                                                     |"
+echo "            / _____ | |  	          CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA    |"
+echo "           / /(__) || |                                                     |"
+echo "  ________/ / |OO| || |                                                     |"
+echo " |         |-------|| |                                                     |"
+echo " (|         |     -.|| |_______________________                              |"
+echo " |  ____   \       ||_________||____________  |             ____      ____  |"
+echo "/| / __ \   |______||     / __ \   / __ \   | |            / __ \    / __ \ |\\"
+echo "\|| /  \ |_______________| /  \ |_| /  \ |__| |___________| /  \ |__| /  \|_|/"
+echo "   | () |                 | () |   | () |                  | () |    | () |"
+echo "    \__/                   \__/     \__/                    \__/      \__/"
+
 #verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
 if [ -e  "$temp" ]
 then 
