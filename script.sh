@@ -151,3 +151,19 @@ then
 fi
 
 find "$temp" -mindepth 1 -delete
+
+#TRAITEMENT L 
+if [ "$l" -eq 1 ]; then
+        # Utiliser awk pour calculer la somme des distances par trajet
+        cut -d";" -f1,5 data/data.csv >cut.csv
+	LC_NUMERIC="C" awk -F";" '{
+            distance[$1] +=$2
+       }
+        END {
+            for (trajet in distance) {
+            	printf trajet ";" distance[trajet] "\n"
+            }      
+}' cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > ltemp.csv
+
+fi
+
