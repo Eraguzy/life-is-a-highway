@@ -40,8 +40,7 @@ exit 4;;
 esac
 done
 
-awk -F';' '$2 == 1' data/data.csv > etape1.csv
-#grep ";1;" data/data.csv > etape1.csv
+
 
 #if [ -e "exec" ]
 #then
@@ -77,6 +76,9 @@ mesurer_temps_execution() {
 }
 
 traitement_d1() {
+	awk -F';' '$2 == 1' data/data.csv > etape1.csv
+	#grep ";1;" data/data.csv > etape1.csv
+	
 	cut -d';' -f6 etape1.csv > d1temp.csv
 	awk '{
 		# Compter les occurrences de chaque nom (sixième colonne)
@@ -120,5 +122,5 @@ traitement_d1() {
 
 if [ $d1 -eq 1 ]
 then
-mesurer_temps_execution traitement_d1
+	mesurer_temps_execution traitement_d1
 fi
