@@ -153,7 +153,7 @@ fi
 #TRAITEMENT L 
 traitement_l() {
         # Utiliser awk pour calculer la somme des distances par trajet
-        cut -d";" -f1,5 data/data.csv >cut.csv
+        cut -d";" -f1,5 data/data.csv >temp/cut.csv
 	LC_NUMERIC="C" awk -F";" '{
             distance[$1] +=$2
        }
@@ -161,7 +161,7 @@ traitement_l() {
             for (trajet in distance) {
             	printf trajet ";" distance[trajet] "\n"
             }      
-}' cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > ltemp.csv
+}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv
 }
 
 
