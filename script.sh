@@ -1,5 +1,6 @@
 #!/bin/bash
 #verifie le bon nombre d'arguments
+
 if [ $# -lt 2 ]
 then
 	echo "Pas le bon nombre d'arguments !"
@@ -19,6 +20,7 @@ else
     echo "Le chemin n'existe pas."
     exit 3
 fi
+
 #verifie les arguments : reste à 0 si l'option n'est pas activée
 d1=0
 d2=0
@@ -38,9 +40,11 @@ do
 		*) echo " ${!i} existe pas";;
 	esac
 done
+
 images='images'
 progc='progc'
 temp='temp'
+
 #verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
 if [ -e  "$temp" ]
 then 
@@ -56,6 +60,7 @@ else
 	mkdir "$temp"
 	echo "le dossier "$temp" n'existe pas. Il vient d'être créé."	
 fi
+
 #verifie si le dossier image existe, sinon on le crée
 if [ -e  "$images" ]
 then 
@@ -70,6 +75,7 @@ else
 	mkdir "$images"
 	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
 fi
+
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
 if [ -e "progc/exec" ]
 then
@@ -85,6 +91,7 @@ else
         	exit 5
         fi
 fi
+
 mesurer_temps_execution() {
     local start_time=$(date +%s) # temps de depart
     $1 # Appelez la fonction passée en paramètre
@@ -92,3 +99,53 @@ mesurer_temps_execution() {
     local elapsed_time=$(echo "$end_time - $start_time" | bc) #diff entre fin et debut (bc car shell ne prend pas en compte les float de base)
     echo "La fonction a pris $elapsed_time secondes pour s'exécuter."
 }
+
+traitement_d1() {
+	awk -F';' '$2 == 1' data/data.csv > etape1.csv
+	#grep ";1;" data/data.csv > etape1.csv
+	
+	cut -d';' -f6 etape1.csv > d1temp.csv
+	awk '{
+		# Compter les occurrences de chaque nom (sixième colonne)
+		count[$i]++
+	}
+	END {
+		#Precss
+		for (prenom in count) {
+			print prenom, ";", count[prenom]
+		}
+	}' d1temp.csv \
+	| sort -k2 -t";" -n -r \
+	| head -n 10 > d1temp2.csv
+	
+	rm d1temp.csv
+	
+	output_file="histogramme.png"
+
+	gnuplot <<-EOF
+	set terminal png size 1000,1000
+	set output "$output_file"
+	set datafile separator ";"
+	set style data histogram
+	set style fill solid
+	set boxwidth 0.5
+	set ylabel "Histogramme des chiffres associés aux prénoms"
+	set yrange [0:450]
+	
+	set xtics rotate by 90 offset 0,-11
+	set ytics rotate by 90
+	set bmargin 13
+	
+	plot "d1temp2.csv" using 2:xtic(1) with boxes notitle
+	EOF
+
+	convert -rotate 90 $output_file $output_file
+
+	xdg-open "$output_file"
+	
+}
+
+if [ $d1 -eq 1 ]
+then
+	mesurer_temps_execution traitement_d1
+fi
