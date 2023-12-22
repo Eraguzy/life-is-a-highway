@@ -181,3 +181,27 @@ if [ "$l" -eq 1 ]
 then
 	mesurer_temps_execution traitement_l
 fi
+
+traitement_d2() {
+    cut -d";" -f5,6 data/data.csv > temp/cut.csv
+    LC_NUMERIC="C" awk -F";" '{
+        distance[$2] += $1
+    }
+    END {
+        for (cond in distance)
+             print distance[cond] ";" cond;
+    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/ltemp.csv
+    export ARG1="$(pwd)/images/histogramme_d2.png"
+    export ARG2="$(pwd)/temp/ltemp.csv"
+
+    gnuplot plot_histogram.gp
+    
+    convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png
+
+    open "images/histogramme_d2.png"
+}
+if [ "$d2" -eq 1 ]
+then
+    mesurer_temps_execution traitement_d2
+fi
+
