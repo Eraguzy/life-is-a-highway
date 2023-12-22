@@ -151,7 +151,7 @@ traitement_d1() {
 	
 }
 
-if [ $d1 -eq 1 ]
+if [ "$d1" -eq 1 ]
 then
 	mesurer_temps_execution traitement_d1
 fi
@@ -177,7 +177,7 @@ traitement_l() {
 	xdg-open "images/histogramme_l.png"
 }
 
-if [ $l -eq 1 ]
+if [ "$l" -eq 1 ]
 then
 	mesurer_temps_execution traitement_l
 fi
