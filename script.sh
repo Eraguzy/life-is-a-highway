@@ -48,11 +48,11 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	          CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA    |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA       |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
-echo " (|         |     -.|| |_______________________                              |"
+echo " (|         |     -.|||_______________________                              |"
 echo " |  ____   \       ||_________||____________  |             ____      ____  |"
 echo "/| / __ \   |______||     / __ \   / __ \   | |            / __ \    / __ \ |\\"
 echo "\|| /  \ |_______________| /  \ |_| /  \ |__| |___________| /  \ |__| /  \|_|/"
@@ -91,19 +91,25 @@ else
 fi
 
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
-if [ -e "progc/exec" ]
+#if [ -e "progc/exec" ]
+#then
+#        echo "L'executable est présent."
+#else
+#        echo "L'executable n'est pas présent."
+#        gcc -o exec progc/exec.c
+#        if [ $? -eq 0 ] # recup la valeur de retour de gcc
+#        then
+#        	echo "Compilation réussie."
+#        else
+#        	echo "La compilation a échoué."
+#        	exit 5
+#        fi
+#fi
+
+if [ ! -e "gnuplot" ]
 then
-        echo "L'executable est présent."
-else
-        echo "L'executable n'est pas présent."
-        gcc -o exec progc/exec.c
-        if [ $? -eq 0 ] # recup la valeur de retour de gcc
-        then
-        	echo "Compilation réussie."
-        else
-        	echo "La compilation a échoué."
-        	exit 5
-        fi
+	echo "Il manque le fichier gnuplot."
+	exit 5
 fi
 
 mesurer_temps_execution() {
@@ -133,33 +139,19 @@ traitement_d1() {
 	| head -n 10 > temp/d1temp2.csv
 	
 	rm temp/d1temp.csv
-	
-	output_file="images/histogramme.png"
 
-	gnuplot <<-EOF
-	set terminal png size 1000,1000
-	set output "$output_file"
-	set datafile separator ";"
-	set style data histogram
-	set style fill solid
-	set boxwidth 0.5
-	set ylabel "Histogramme des chiffres associés aux prénoms"
-	set yrange [0:450]
-	
-	set xtics rotate by 90 offset 0,-11
-	set ytics rotate by 90
-	set bmargin 13
-	
-	plot "temp/d1temp2.csv" using 2:xtic(1) with boxes notitle
-	EOF
+	export ARG1="$(pwd)/images/histogramme_d1.png"
+	export ARG2="$(pwd)/temp/d1temp2.csv"
 
-	convert -rotate 90 $output_file $output_file
+	gnuplot gnuplot/histogramme_horizontal.gp
+	
+	convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png
 
-	xdg-open "$output_file"
+	xdg-open "images/histogramme_d1.png"
 	
 }
 
-if [ $d1 -eq 1 ]
+if [ "$d1" -eq 1 ]
 then
 	mesurer_temps_execution traitement_d1
 fi
@@ -170,18 +162,22 @@ traitement_l() {
         cut -d";" -f1,5 data/data.csv >temp/cut.csv
 	LC_NUMERIC="C" awk -F";" '{
             distance[$1] +=$2
-       }
+	}
         END {
             for (trajet in distance) {
             	printf trajet ";" distance[trajet] "\n"
             }      
-}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv
-}
+	}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv
+	
+	export ARG1="$(pwd)/images/histogramme_l.png"
+	export ARG2="$(pwd)/temp/ltemp.csv"
 
+	gnuplot gnuplot/histogramme_vertical.gp
+	
+	xdg-open "images/histogramme_l.png"
+}
 
 if [ "$l" -eq 1 ]
 then
 	mesurer_temps_execution traitement_l
 fi
-find "$temp" -mindepth 1 -delete
-
