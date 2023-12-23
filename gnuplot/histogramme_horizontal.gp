@@ -15,7 +15,7 @@ set y2range [0:*]
 set xtics rotate by 90
 set xtics right
 set y2tics rotate by 90
-set y2tics center offset 0,0
+set y2tics center
 set bmargin 13
 set tmargin 2
 
