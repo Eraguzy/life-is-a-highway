@@ -26,7 +26,7 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 
 `-d1` : affiche un histogramme horizontal montrant les 10 conducteurs ayant effectué **le plus de trajets**, avec en ordonnée les noms des conducteurs, et en abscisse le nombre de trajets effectués.
 
-`-d2` : affiche un histogramme horizontal montrant les 10 conducteurs ayant parcouru **la plus grande distance**, avec en ordonnée les noms des conducteurs, et en abscisse la distance effectuée (km). S'effectue en moins de 7 secondes.
+`-d2` : affiche un histogramme horizontal montrant les 10 conducteurs ayant parcouru **la plus grande distance**, avec en ordonnée les noms des conducteurs, et en abscisse la distance effectuée (km).
 
 `-l` : affiche un histogramme vertical montrant les 10 **plus longs trajets**, avec en abscisse l’identifiant du trajet, et en ordonnée la distance (km).
 
