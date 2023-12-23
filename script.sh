@@ -207,3 +207,11 @@ then
     mesurer_temps_execution traitement_d2
 fi
 
+traitement_s() {
+
+}
+
+if [ "$s" -eq 1 ]
+then
+    mesurer_temps_execution traitement_s
+fi

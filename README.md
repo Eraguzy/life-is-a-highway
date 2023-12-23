@@ -24,11 +24,11 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 
 `-h` : affiche l'**aide**. Si présent, le programme n'effectuera pas d'autre tâche.
 
-`-d1` : affiche un histogramme horizontal montrant les 10 conducteurs ayant effectué **le plus de trajets**, avec en ordonnée les noms des conducteurs, et en abscisse le nombre de trajets effectués. S'effectue en moins de 8 secondes.
+`-d1` : affiche un histogramme horizontal montrant les 10 conducteurs ayant effectué **le plus de trajets**, avec en ordonnée les noms des conducteurs, et en abscisse le nombre de trajets effectués.
 
 `-d2` : affiche un histogramme horizontal montrant les 10 conducteurs ayant parcouru **la plus grande distance**, avec en ordonnée les noms des conducteurs, et en abscisse la distance effectuée (km). S'effectue en moins de 7 secondes.
 
-`-l` : affiche un histogramme vertical montrant les 10 **plus longs trajets**, avec en abscisse l’identifiant du trajet, et en ordonnée la distance (km). S'effectue en moins de 8 secondes.
+`-l` : affiche un histogramme vertical montrant les 10 **plus longs trajets**, avec en abscisse l’identifiant du trajet, et en ordonnée la distance (km).
 
 `-t` : affiche un histogramme vertical regroupé montrant les 10 **villes les plus traversées**, avec en abscisse le nom des villes, et en ordonnée le nombre de trajets. Le graphique montre le nombre de traversées ainsi que le nombre de fois où cette ville est un point de départ.
 
