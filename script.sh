@@ -29,7 +29,7 @@ s=0
 l=0
 for i in `seq 2 $#`
 do
-	case ${!i} in
+	case ${!i} in # activation des args si demandé
 		"-d1") d1=1;;
 		"-d2") d2=1;;
 		"-t") t=1;;
@@ -37,7 +37,7 @@ do
 		"-s") s=1;;
 		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s"
 		exit 4;; # quitte si y'a -h
-		*) echo " ${!i} existe pas";;
+		*) echo " ${!i} n'existe pas";;
 	esac
 done
 
@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA       |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA   	      |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -108,7 +108,8 @@ fi
 
 if [ ! -e "gnuplot" ]
 then
-	echo "Il manque le fichier gnuplot."
+	echo "Il manque le dossier gnuplot."
+	mkdir "gnuplot"
 	exit 5
 fi
 
@@ -121,29 +122,29 @@ mesurer_temps_execution() {
 }
 
 traitement_d1() {
-	awk -F';' '$2 == 1' data/data.csv > temp/etape1.csv
+	awk -F';' '$2 == 1' data/data.csv > temp/etape1.csv #recupère toutes les lignes contenant l'etape 1
 	#grep ";1;" data/data.csv > etape1.csv
 	
-	cut -d';' -f6 temp/etape1.csv > temp/d1temp.csv
+	cut -d';' -f6 temp/etape1.csv > temp/d1temp.csv 
 	awk '{
 		# Compter les occurrences de chaque nom (sixième colonne)
 		count[$i]++
 	}
 	END {
-		#Precss
+		#mettre les resultats dans un fichier temporaire
 		for (prenom in count) {
 			print prenom, ";", count[prenom]
 		}
 	}' temp/d1temp.csv \
-	| sort -k2 -t";" -n -r \
-	| head -n 10 > temp/d1temp2.csv
+	| sort -k2 -t";" -n -r \ #tri décr. par nombre occurences
+	| head -n 10 > temp/d1temp2.csv #10 premieres lignes
 	
 	rm temp/d1temp.csv
 
-	export ARG1="$(pwd)/images/histogramme_d1.png"
+	export ARG1="$(pwd)/images/histogramme_d1.png" #exportation pour gnuplot
 	export ARG2="$(pwd)/temp/d1temp2.csv"
 
-	gnuplot gnuplot/histogramme_horizontal.gp
+	gnuplot gnuplot/histogramme_horizontal.gp #generer histogramme
 	
 	convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png
 
@@ -151,7 +152,7 @@ traitement_d1() {
 	
 }
 
-if [ "$d1" -eq 1 ]
+if [ "$d1" -eq 1 ] # option activée = calcul du temps d'exécution + exécution du traitement demandé (pareil pour tous les autres traitements)
 then
 	mesurer_temps_execution traitement_d1
 fi
@@ -167,12 +168,12 @@ traitement_l() {
             for (trajet in distance) {
             	printf trajet ";" distance[trajet] "\n"
             }      
-	}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv
+	}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv #garde les 10 premiers par somme de distance, garde les 10 premiers et trie par id trajet
 	
-	export ARG1="$(pwd)/images/histogramme_l.png"
+	export ARG1="$(pwd)/images/histogramme_l.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/ltemp.csv"
 
-	gnuplot gnuplot/histogramme_vertical.gp
+	gnuplot gnuplot/histogramme_vertical.gp #crée puis affiche graphique
 	
 	xdg-open "images/histogramme_l.png"
 }
@@ -183,23 +184,24 @@ then
 fi
 
 traitement_d2() {
-    cut -d";" -f5,6 data/data.csv > temp/cut.csv
-    LC_NUMERIC="C" awk -F";" '{
+    cut -d";" -f5,6 data/data.csv > temp/cut.csv # garde les noms et les conducteurs
+    LC_NUMERIC="C" awk -F";" '{ # calcule les sommes des etapes
         distance[$2] += $1
     }
     END {
         for (cond in distance)
              print distance[cond] ";" cond;
-    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/ltemp.csv
-    export ARG1="$(pwd)/images/histogramme_d2.png"
+    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/ltemp.csv #garde les 10 distances les + longues
+    export ARG1="$(pwd)/images/histogramme_d2.png" #export pour gnuplot
     export ARG2="$(pwd)/temp/ltemp.csv"
 
-    gnuplot plot_histogram.gp
+    gnuplot plot_histogram.gp #créer histogramme
     
     convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png
 
     open "images/histogramme_d2.png"
 }
+
 if [ "$d2" -eq 1 ]
 then
     mesurer_temps_execution traitement_d2
