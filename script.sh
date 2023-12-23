@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA   	      |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA       |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -136,8 +136,8 @@ traitement_d1() {
 			print prenom, ";", count[prenom]
 		}
 	}' temp/d1temp.csv \
-	| sort -k2 -t";" -n -r \ #tri décr. par nombre occurences
-	| head -n 10 > temp/d1temp2.csv #10 premieres lignes
+	| sort -k2 -t";" -n -r \
+	| head -n 10 > temp/d1temp2.csv #tri décr. par nombre occurences et on récupère les 10 premieres lignes
 	
 	rm temp/d1temp.csv
 
@@ -191,9 +191,10 @@ traitement_d2() {
     END {
         for (cond in distance)
              print distance[cond] ";" cond;
-    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/ltemp.csv #garde les 10 distances les + longues
+    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/d2temp.csv #garde les 10 distances les + longues
+    
     export ARG1="$(pwd)/images/histogramme_d2.png" #export pour gnuplot
-    export ARG2="$(pwd)/temp/ltemp.csv"
+    export ARG2="$(pwd)/temp/d2temp.csv"
 
     gnuplot gnuplot/histogramme_d2.gp #créer histogramme
     
@@ -207,11 +208,11 @@ then
     mesurer_temps_execution traitement_d2
 fi
 
-traitement_s() {
+#traitement_s() {
+	
+#}
 
-}
-
-if [ "$s" -eq 1 ]
-then
-    mesurer_temps_execution traitement_s
-fi
+#if [ "$s" -eq 1 ]
+#then
+#    mesurer_temps_execution traitement_s
+#fi
