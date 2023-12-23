@@ -195,11 +195,11 @@ traitement_d2() {
     export ARG1="$(pwd)/images/histogramme_d2.png" #export pour gnuplot
     export ARG2="$(pwd)/temp/ltemp.csv"
 
-    gnuplot plot_histogram.gp #créer histogramme
+    gnuplot gnuplot/histogramme_d2.gp #créer histogramme
     
     convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png
 
-    open "images/histogramme_d2.png"
+    xdg-open "images/histogramme_d2.png"
 }
 
 if [ "$d2" -eq 1 ]
