@@ -14,7 +14,8 @@ set y2range [0:*]
 
 set xtics rotate by 90
 set xtics right
-set y2tics rotate by 90 offset 0,-1
+set y2tics rotate by 90
+set y2tics center offset 0,0
 set bmargin 13
 set tmargin 2
 
@@ -22,4 +23,3 @@ unset ytics
 unset yrange
 
 plot ARG2 using 2:xtic(1) with boxes notitle axes x1y2
-
