@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA       |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	          |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -192,7 +192,7 @@ traitement_d2() {
         for (cond in distance)
              print distance[cond] ";" cond;
     }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/d2temp.csv #garde les 10 distances les + longues
-    
+
     export ARG1="$(pwd)/images/histogramme_d2.png" #export pour gnuplot
     export ARG2="$(pwd)/temp/d2temp.csv"
 
@@ -208,11 +208,39 @@ then
     mesurer_temps_execution traitement_d2
 fi
 
-#traitement_s() {
-	
-#}
+traitement_s() {
+	#awk pour récupérer les min max et moy de chaque trajet
+	awk -F ';' '{
+		trajet = $1
+		etape = $2
+		distance = $5
+		conducteur = $6
 
-#if [ "$s" -eq 1 ]
-#then
-#    mesurer_temps_execution traitement_s
-#fi
+		# etape la plus courte (stocke dans un tableau)
+		# si la case est vide (""), alors on entre dans la condition; sinon, on garde la valeur si elle est + petite
+		if (min_distance[trajet] == "" || distance < min_distance[trajet]) {
+			min_distance[trajet] = distance
+		}
+
+		# etape la plus longue 
+		if (max_distance[trajet] == "" || distance > max_distance[trajet]) {
+			max_distance[trajet] = distance
+		}
+
+		# addition dans un tableau de la distance totale + compte des etapes par trajet
+		total_distance[trajet] += distance
+		count[trajet]++
+
+		# moyenne pour chaque itération
+		moyenne_distance = total_distance[trajet] / count[trajet]
+
+		# résultats dans un csv temp 
+    	printf "%s;%s;%s;%f\n", trajet, min_distance[trajet], max_distance[trajet], moyenne_distance > temp/stemp.csv
+	}' "data/data.csv"
+}
+
+
+if [ "$s" -eq 1 ]
+then
+    mesurer_temps_execution traitement_s
+fi
