@@ -211,34 +211,37 @@ fi
 traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
 	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
-	#tail +2 pour supp les titres
-	tail -n +2 data/data.csv | LC_NUMERIC=C awk -F ';' '{
-		trajet = $1
-		etape = $2
-		distance = $5
-		conducteur = $6
+	if (NR > 1) { # compte pas la ligne 1
+		LC_NUMERIC=C awk -F ';' '{
+			trajet = $1
+			distance = $5
+			conducteur = $6
 
-		# etape la plus courte (stocke dans un tableau)
-		# si la case est vide (""), alors on entre dans la condition; sinon, on garde la valeur si elle est + petite
-		if (min_distance[trajet] == "" || distance < min_distance[trajet]) {
-			min_distance[trajet] = distance
+			# etape la plus courte (stocke dans un tableau)
+			# si la case est vide (""), alors on entre dans la condition; sinon, on garde la valeur si elle est + petite
+			if (min_distance[trajet] == "" || distance < min_distance[trajet]) {
+				min_distance[trajet] = distance
+			}
+
+			# etape la plus longue 
+			if (max_distance[trajet] == "" || distance > max_distance[trajet]) {
+				max_distance[trajet] = distance
+			}
+
+			# addition dans un tableau de la distance totale + compte des etapes par trajet
+			total_distance[trajet] += distance
+			count[trajet]++
 		}
-
-		# etape la plus longue 
-		if (max_distance[trajet] == "" || distance > max_distance[trajet]) {
-			max_distance[trajet] = distance
+	}
+	END {
+		for (trajet in min_distance) {
+			# moyenne pour chaque itération, reformatte la moyenne pour devenir un chiffre à virgule
+			moyenne_distance = total_distance[trajet] / count[trajet]
+			formatmoyenne = sprintf("%.5f", moyenne_distance)
+			# résultats dans un csv temp 
+			printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne
 		}
-
-		# addition dans un tableau de la distance totale + compte des etapes par trajet
-		total_distance[trajet] += distance
-		count[trajet]++
-
-		# moyenne pour chaque itération, reformatte la moyenne pour devenir un chiffre à virgule
-		moyenne_distance = total_distance[trajet] / count[trajet]; formatmoyenne = sprintf("%.5f", moyenne_distance);
-
-		# résultats dans un csv temp 
-    		printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne > "temp/stemp.csv"
-	}'
+	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 }
 
 
