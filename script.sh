@@ -210,7 +210,9 @@ fi
 
 traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
-	awk -F ';' '{
+	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
+	#tail +2 pour supp les titres
+	tail -n +2 data/data.csv | head -n 5000 | LC_NUMERIC=C awk -F ';' '{
 		trajet = $1
 		etape = $2
 		distance = $5
@@ -231,12 +233,12 @@ traitement_s() {
 		total_distance[trajet] += distance
 		count[trajet]++
 
-		# moyenne pour chaque itération
-		moyenne_distance = total_distance[trajet] / count[trajet]
+		# moyenne pour chaque itération, reformatte la moyenne pour devenir un chiffre à virgule
+		moyenne_distance = total_distance[trajet] / count[trajet]; formatmoyenne = sprintf("%.5f", moyenne_distance);
 
 		# résultats dans un csv temp 
-    	printf "%s;%s;%s;%f\n", trajet, min_distance[trajet], max_distance[trajet], moyenne_distance > temp/stemp.csv
-	}' "data/data.csv"
+    		printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne > "temp/stemp.csv"
+	}'
 }
 
 
