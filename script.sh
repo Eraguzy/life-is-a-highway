@@ -232,16 +232,16 @@ traitement_s() {
 			total_distance[trajet] += distance
 			count[trajet]++
 		}
+		END {
+			for (trajet in min_distance) {
+				# moyenne pour chaque itération, reformatte la moyenne pour devenir un chiffre à virgule
+				moyenne_distance = total_distance[trajet] / count[trajet]
+				formatmoyenne = sprintf("%.5f", moyenne_distance)
+				# résultats dans un csv temp 
+				printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne
+			}
+		}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 	}
-	END {
-		for (trajet in min_distance) {
-			# moyenne pour chaque itération, reformatte la moyenne pour devenir un chiffre à virgule
-			moyenne_distance = total_distance[trajet] / count[trajet]
-			formatmoyenne = sprintf("%.5f", moyenne_distance)
-			# résultats dans un csv temp 
-			printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne
-		}
-	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 }
 
 
