@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	          |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	    |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -212,7 +212,7 @@ traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
 	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
 	#tail +2 pour supp les titres
-	tail -n +2 data/data.csv | head -n 5000 | LC_NUMERIC=C awk -F ';' '{
+	tail -n +2 data/data.csv | LC_NUMERIC=C awk -F ';' '{
 		trajet = $1
 		etape = $2
 		distance = $5
