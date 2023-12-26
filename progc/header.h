@@ -9,9 +9,13 @@
     typedef struct arbre{
         struct arbre* gauche;
         struct arbre* droite;
-        char* elmnt;
+        int eq;
+        int elmnt;
     }Arbre;
 
+    int min(int a, int b);
+    int max(int a, int b);
     Arbre* creerarbre(int x);
-    Arbre* ajoutabr(Arbre* a, int x);
+    Arbre* ajoutabr(Arbre* a, int x, int* h);
+    Arbre* equilibreravl(Arbre* a);
 #endif

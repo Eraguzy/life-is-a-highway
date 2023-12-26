@@ -250,6 +250,7 @@ if [ "$s" -eq 1 ]
 then
     mesurer_temps_execution traitement_s
 fi
+
 #TRAITEMENT T (pour l'instant pas vrm les memes valeurs que le prof mais l'ordre est bon)
 traitement_t() {
     awk -F';' '
