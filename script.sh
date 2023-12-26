@@ -209,7 +209,7 @@ then
 fi
 
 traitement_t() {
-	#awk pour récupérer le nombre de fois ou une ville apparait dans un trajet, et apparait comme ville de départ
+	#awk pour récupérer le nombre de fois ou une ville apparait dans un trajet, et apparait comme ville de départ et on met ces 3 trucs dans un fichier tempt.csv
     awk -F';' '{
         departure[$3]++;
         total[$3]++;
@@ -217,7 +217,6 @@ traitement_t() {
         total[$4]++;
     }
     END {
-    #on met tout ça dans le fichier tempt.csv
         for (city in total) {
             print city ";" total[city] ";" departure[city]
         }
