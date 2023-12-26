@@ -19,4 +19,6 @@
     Arbre* creerarbre(int x, char* c);
     Arbre* ajoutabr(Arbre* a, int x, char* c, int* h);
     Arbre* equilibreravl(Arbre* a);
+    void traitement_t(int argc, char* argv[]);
+    void traitement_s(int argc, char* argv[]);
 #endif
