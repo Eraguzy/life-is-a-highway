@@ -208,21 +208,6 @@ then
     mesurer_temps_execution traitement_d2
 fi
 
-traitement_t() {
-	#awk pour récupérer le nombre de fois ou une ville apparait dans un trajet, et apparait comme ville de départ et on met ces 3 trucs dans un fichier tempt.csv
-    awk -F';' '{
-        departure[$3]++;
-        total[$3]++;
-        arrival[$4]++;
-        total[$4]++;
-    }
-    END {
-        for (city in total) {
-            print city ";" total[city] ";" departure[city]
-        }
-    }' data/data.csv > temp/tempt.csv
-}
-
 traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
 	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
