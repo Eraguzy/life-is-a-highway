@@ -243,6 +243,8 @@ traitement_s() {
 			printf "%s;%s;%s;%s\n", trajet, min_distance[trajet], max_distance[trajet], formatmoyenne
 		}
 	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
+
+	./lifeisahighway S $(realpath temp/stemp.csv)
 }
 
 
