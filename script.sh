@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	    |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	    	  |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -207,6 +207,22 @@ if [ "$d2" -eq 1 ]
 then
     mesurer_temps_execution traitement_d2
 fi
+
+traitement_t() {
+	#awk pour récupérer le nombre de fois ou une ville apparait dans un trajet, et apparait comme ville de départ
+    awk -F';' '{
+        departure[$3]++;
+        total[$3]++;
+        arrival[$4]++;
+        total[$4]++;
+    }
+    END {
+    #on met tout ça dans le fichier tempt.csv
+        for (city in total) {
+            print city ";" total[city] ";" departure[city]
+        }
+    }' data/data.csv > temp/tempt.csv
+}
 
 traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
