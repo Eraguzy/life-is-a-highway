@@ -6,7 +6,10 @@ main.o: main.c header.h
 avl.o: avl.c header.h
 	gcc -c avl.c -o avl.o
 
-lifeisahighway: main.o avl.o
+traitements.o: traitements.c header.h
+	gcc -c traitements.c -o traitements.o
+
+lifeisahighway: main.o avl.o traitements.o
 	gcc $^ -o lifeisahighway 
 # nom de l'exec final : lifeisahighway
 # $^ = toutes les dépendances

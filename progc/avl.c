@@ -8,9 +8,14 @@ int min(int a, int b){
     return a<=b ? a:b;
 }
 
-Arbre* creerarbre(int x){
+Arbre* creerarbre(int x, char* c){
     Arbre* new = malloc(sizeof(Arbre));
     if (new == NULL){
+        printf("erreur malloc\n");
+        exit(1);
+    }
+    new->csv = malloc(strlen(c) + 1); //allocation pour la partie char du noeud
+    if (new->csv == NULL){
         printf("erreur malloc\n");
         exit(1);
     }
@@ -18,20 +23,21 @@ Arbre* creerarbre(int x){
     new->droite = NULL;
     new->gauche = NULL;
     new->elmnt = x;
+    strcpy(new->csv, c); //gestion spéciale pour le char
     new->eq = 0;
     return new;
 }
 
-Arbre* ajoutabr(Arbre* a, int x, int* h){
+Arbre* ajoutabr(Arbre* a, int x, char* c, int* h){
     if(a == NULL){
         *h = 1;
-        return creerarbre(x);
+        return creerarbre(x, c);
     }
     if(x > a->elmnt){
-        a->droite = ajoutabr(a->droite, x, h);
+        a->droite = ajoutabr(a->droite, x, c, h);
     }
     if(x < a->elmnt){
-        a->gauche = ajoutabr(a->gauche, x, h);
+        a->gauche = ajoutabr(a->gauche, x, c, h);
         *h = -(*h);
     }
     else{

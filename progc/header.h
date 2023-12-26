@@ -11,11 +11,12 @@
         struct arbre* droite;
         int eq;
         int elmnt;
+        char* csv; //contient toutes les autres infos de l'élément (qui ne servent pas au tri)
     }Arbre;
 
     int min(int a, int b);
     int max(int a, int b);
-    Arbre* creerarbre(int x);
-    Arbre* ajoutabr(Arbre* a, int x, int* h);
+    Arbre* creerarbre(int x, char* c);
+    Arbre* ajoutabr(Arbre* a, int x, char* c, int* h);
     Arbre* equilibreravl(Arbre* a);
 #endif
