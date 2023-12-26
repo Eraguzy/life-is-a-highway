@@ -250,3 +250,31 @@ if [ "$s" -eq 1 ]
 then
     mesurer_temps_execution traitement_s
 fi
+#TRAITEMENT T (pour l'instant pas vrm les memes valeurs que le prof mais l'ordre est bon)
+traitement_t() {
+    awk -F';' '
+{
+    if (!villes_deja_comptees[$1, $3]) {
+        villes_par_trajet[$3]++;
+        villes_deja_comptees[$1, $3] = 1;
+    }
+
+    if (!villes_deja_comptees[$1, $4]) {
+        villes_par_trajet[$4]++;
+        villes_deja_comptees[$1, $4] = 1;
+    }
+    if($2 == 1){
+        etape_1[$3]++;
+        
+    }
+}
+END {
+    for (ville in villes_par_trajet) {
+        print ville ";" villes_par_trajet[ville] ";" etape_1[ville]
+    }
+}' data/data.csv > temp/tempt.csv
+}
+if [ "$t" -eq 1 ]
+then
+    mesurer_temps_execution traitement_t
+fi
