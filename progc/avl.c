@@ -8,7 +8,7 @@ int min(int a, int b){
     return a<=b ? a:b;
 }
 
-Arbre* creerarbre(int x, char* c){
+Arbre* creerarbre(float x, char* c){
     Arbre* new = malloc(sizeof(Arbre));
     if (new == NULL){
         printf("erreur malloc\n");
@@ -28,7 +28,7 @@ Arbre* creerarbre(int x, char* c){
     return new;
 }
 
-Arbre* ajoutabr(Arbre* a, int x, char* c, int* h){
+Arbre* ajoutabr(Arbre* a, float x, char* c, int* h){
     if(a == NULL){
         *h = 1;
         return creerarbre(x, c);

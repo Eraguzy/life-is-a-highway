@@ -41,10 +41,6 @@ do
 	esac
 done
 
-images='images'
-progc='progc'
-temp='temp'
-
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
@@ -58,6 +54,11 @@ echo "/| / __ \   |______||     / __ \   / __ \   | |            / __ \    / __ 
 echo "\|| /  \ |_______________| /  \ |_| /  \ |__| |___________| /  \ |__| /  \|_|/"
 echo "   | () |                 | () |   | () |                  | () |    | () |"
 echo "    \__/                   \__/     \__/                    \__/      \__/"
+
+images='images'
+progc='progc'
+temp='temp'
+
 
 #verifie si le dossier temp existe, s'il n'existe pas ou si ce n'est pas un fichier, le dossier temp est créé
 if [ -e  "$temp" ]
@@ -241,7 +242,7 @@ traitement_s() {
 		}
 	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 
-	./progc/lifeisahighway S $(realpath temp/stemp.csv)
+	./progc/lifeisahighway S "$(readlink -f temp/stemp.csv)"
 }
 
 

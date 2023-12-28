@@ -13,10 +13,18 @@ void traitement_s(int argc, char* argv[]){
     char trajet[100]; // Assure-toi que la taille est suffisante
     int* h;
 
+    fscanf(fichier1, "%99[^;];%f;%f;%99[^\n]", trajet, &min_distance, &max_distance, ligne);
+    float difference = max_distance - min_distance;
+    arbre = ajoutabr(arbre, difference, ligne, h);
+    printf("%f\n", arbre->elmnt);
+    printf("%s\n", arbre->csv);
+
+    #if 0 
     while (fscanf(fichier1, "%99[^;];%f;%f;%99[^\n]", trajet, &min_distance, &max_distance, ligne) == 4){
         float difference = max_distance - min_distance;
         arbre = ajoutabr(arbre, difference, ligne, h);
     }
+    #endif
 
     fclose(fichier1);
 }
