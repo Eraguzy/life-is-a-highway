@@ -106,12 +106,9 @@ else
     fi
 fi
 
-if [ ! -e "gnuplot" ]
-then
-	echo "Il manque le dossier gnuplot."
-	mkdir "gnuplot"
-	exit 5
-fi
+echo " "
+echo "traitement en cours..." #juste esthétique :)
+echo " "
 
 mesurer_temps_execution() {
     local start_time=$(date +%s) # temps de depart
@@ -244,7 +241,7 @@ traitement_s() {
 		}
 	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 
-	./lifeisahighway S $(realpath temp/stemp.csv)
+	./progc/lifeisahighway S $(realpath temp/stemp.csv)
 }
 
 
