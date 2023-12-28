@@ -48,7 +48,7 @@ temp='temp'
 echo "                      _____________________________________________________"
 echo "                      |                                                     |"
 echo "             _______  |                                                     |"
-echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA	    	  |"
+echo "            / _____ | |  	 CY TRUCKS PAR LUCAS, ELIAS ET LOUEVA 	    |"
 echo "           / /(__) || |                                                     |"
 echo "  ________/ / |OO| || |                                                     |"
 echo " |         |-------|| |                                                     |"
@@ -91,20 +91,20 @@ else
 fi
 
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
-#if [ -e "progc/exec" ]
-#then
-#        echo "L'executable est présent."
-#else
-#        echo "L'executable n'est pas présent."
-#        gcc -o exec progc/exec.c
-#        if [ $? -eq 0 ] # recup la valeur de retour de gcc
-#        then
-#        	echo "Compilation réussie."
-#        else
-#        	echo "La compilation a échoué."
-#        	exit 5
-#        fi
-#fi
+if [ -e "progc/lifeisahighway" ]
+then
+    echo "L'executable est présent."
+else
+    echo "L'executable n'est pas présent."
+	make -C progc -f makefile
+    if [ $? -eq 0 ] # recup la valeur de retour de make
+    then
+    	echo "Compilation réussie."
+    else
+    	echo "La compilation a échoué."
+    	exit 5
+    fi
+fi
 
 if [ ! -e "gnuplot" ]
 then
