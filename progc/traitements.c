@@ -1,5 +1,16 @@
 #include "header.h"
 
+void infixepours(Arbre* arbre, int* count){
+    if(arbre != NULL){
+        infixepours(arbre->droite, count);
+        if (*count < 50){
+            printf("Ligne %d : %s\n", *count, arbre->csv);
+            (*count)++;
+        }
+        infixepours(arbre->gauche, count);
+    }
+}
+
 void traitement_s(int argc, char* argv[]){
     FILE* fichier1 = fopen(argv[2], "r");
     if (fichier1 == NULL) {
@@ -9,9 +20,10 @@ void traitement_s(int argc, char* argv[]){
 
     Arbre* arbre = NULL;
 
-    char line[100];  // Assurez-vous que cette taille est suffisante pour contenir une ligne complète
+    char line[100]; //taille suffisante
     float difference;
     int* h = malloc(sizeof(int));
+    int count = 1;
 
     while (fgets(line, sizeof(line), fichier1) != NULL) {
         // mettre la ligne dans le noeud
@@ -26,16 +38,9 @@ void traitement_s(int argc, char* argv[]){
             
             printf("Différence entre la 3e et la 2e colonne : %.5f\n", difference);
         } 
-        arbre = ajoutabr(arbre, difference, line, h);
-
+        arbre = ajoutabr(arbre, difference, line, h); //remplit avl
     }
-#if 0
-    while (fscanf(fichier1, "%99[^;];%f;%f;%99[^\n]", trajet, &min_distance, &max_distance, ligne) == 4){
-        float difference = max_distance - min_distance;
-        arbre = ajoutabr(arbre, difference, ligne, h);
-    }
-#endif
-
+    infixepours(arbre, &count);
     fclose(fichier1);
 }
 

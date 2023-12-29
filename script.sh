@@ -221,7 +221,6 @@ traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
 	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
 	#NR > 1 =  compte pas la ligne 1
-	export LC_NUMERIC=C
 	LC_NUMERIC=C awk -F ';' '{
 		if (NR > 1) {
 			trajet = $1
