@@ -17,7 +17,8 @@
     int min(int a, int b);
     int max(int a, int b);
     Arbre* creerarbre(float x, char* c);
-    Arbre* ajoutabr(Arbre* a, float x, char* c, int* h);
+    Arbre* ajoutabr(Arbre* a, float x, char* c, int* h); //tri selon h
+    Arbre* ajoutabrchar(Arbre* a, float x, char* c, int* h); //tri selon c
     Arbre* equilibreravl(Arbre* a);
     void traitement_t(int argc, char* argv[]);
     void traitement_s(int argc, char* argv[]);

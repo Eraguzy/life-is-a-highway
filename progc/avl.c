@@ -58,6 +58,36 @@ Arbre* ajoutabr(Arbre* a, float x, char* c, int* h){
     return a;
 }
 
+Arbre* ajoutabrchar(Arbre* a, float x, char* c, int* h){
+    if(a == NULL){
+        *h = 1;
+        return creerarbre(x, c);
+    }
+    if(strcmp(c, a->csv) > 0){ //comparaison de char
+        a->droite = ajoutabrchar(a->droite, x, c, h);
+    }
+    if(strcmp(c, a->csv) < 0){
+        a->gauche = ajoutabrchar(a->gauche, x, c, h);
+        *h = -(*h);
+    }
+    else{
+        *h = 0;
+        return a;
+    }
+
+    if(*h != 0){
+        a->eq = a->eq + *h;
+        a = equilibreravl(a);
+        if(a->eq == 0){
+            *h = 0;
+        }
+        else {
+            *h = 1;
+        }
+    }
+    return a;
+}
+
 Arbre* rotationgauche(Arbre* a){ 
     if(a == NULL){
         return a;
