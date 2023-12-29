@@ -8,23 +8,33 @@ void traitement_s(int argc, char* argv[]){
     }
 
     Arbre* arbre = NULL;
-    float min_distance, max_distance;
-    char ligne[100];
-    char trajet[100]; // Assure-toi que la taille est suffisante
-    int* h;
 
-    fscanf(fichier1, "%99[^;];%f;%f;%99[^\n]", trajet, &min_distance, &max_distance, ligne);
-    float difference = max_distance - min_distance;
-    arbre = ajoutabr(arbre, difference, ligne, h);
-    printf("%f\n", arbre->elmnt);
-    printf("%s\n", arbre->csv);
+    char line[100];  // Assurez-vous que cette taille est suffisante pour contenir une ligne complète
+    float difference;
+    int* h = malloc(sizeof(int));
 
-    #if 0 
+    while (fgets(line, sizeof(line), fichier1) != NULL) {
+        // mettre la ligne dans le noeud
+        printf("Ligne lue : %s", line);
+
+        int id;
+        float min, max, moy;
+
+        if (sscanf(line, "%d;%f;%f;%f", &id, &min, &max, &moy) == 4) {
+            //différence entre la 3e et la 2e colonne
+            difference = max - min;
+            
+            printf("Différence entre la 3e et la 2e colonne : %.5f\n", difference);
+        } 
+        arbre = ajoutabr(arbre, difference, line, h);
+
+    }
+#if 0
     while (fscanf(fichier1, "%99[^;];%f;%f;%99[^\n]", trajet, &min_distance, &max_distance, ligne) == 4){
         float difference = max_distance - min_distance;
         arbre = ajoutabr(arbre, difference, ligne, h);
     }
-    #endif
+#endif
 
     fclose(fichier1);
 }

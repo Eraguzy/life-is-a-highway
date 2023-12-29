@@ -102,21 +102,21 @@ else
 	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
 fi
 
+make -C progc -f makefile
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
-if [ -e "progc/lifeisahighway" ]
-then
-    echo "L'executable est présent."
-else
-    echo "L'executable n'est pas présent."
-	make -C progc -f makefile
-    if [ $? -eq 0 ] # recup la valeur de retour de make
-    then
-    	echo "Compilation réussie."
-    else
-    	echo "La compilation a échoué."
-    	exit 5
-    fi
-fi
+#if [ -e "progc/lifeisahighway" ]
+#then
+#    echo "L'executable est présent."
+#else
+#    echo "L'executable n'est pas présent."
+#    if [ $? -eq 0 ] # recup la valeur de retour de make
+#    then
+#    	echo "Compilation réussie."
+#    else
+#    	echo "La compilation a échoué."
+#    	exit 5
+#    fi
+#fi
 
 echo " "
 echo "traitement en cours..." #juste esthétique :)
@@ -221,6 +221,7 @@ traitement_s() {
 	#awk pour récupérer les min max et moy de chaque trajet
 	#lcnumeric = force le awk à prendre le point en norme au lieu de la virgule
 	#NR > 1 =  compte pas la ligne 1
+	export LC_NUMERIC=C
 	LC_NUMERIC=C awk -F ';' '{
 		if (NR > 1) {
 			trajet = $1
