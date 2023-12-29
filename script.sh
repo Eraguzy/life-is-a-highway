@@ -36,6 +36,7 @@ do
 		"-l") l=1;;
 		"-s") s=1;;
 		"-h")
+		echo " "
 		echo "Options disponibles :"
 		echo "-d1 : Affiche les conducteurs avec le plus de trajets"
 		echo "-d2 : Affiche les conducteurs avec la plus grande distance parcourue"
@@ -43,6 +44,7 @@ do
 		echo "-l : Affiche les trajets les plus longs"
 		echo "-s : Affiche des statistiques sur les étapes des trajets"
 		echo "-h : Affiche cette aide"
+		echo " "
 		echo "Exemple d'utilisation une fois dans le bon répertoire : bash script.sh data/data.csv -d1 -d2"
 		echo "Plus de détails : https://github.com/Eraguzy/life-is-a-highway#life-is-a-highway-"
 		exit 4;; # quitte si y'a -h
