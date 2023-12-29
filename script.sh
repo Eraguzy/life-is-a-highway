@@ -102,21 +102,23 @@ else
 	echo "le dossier "$images" n'existe pas. Il vient d'être créé."	
 fi
 
-make -C progc -f makefile
 #verifie si l'executable existe, sinon il compile le fichier .c et si il n'y arrive pas il affiche un message d'erreur et quitte le programme
-#if [ -e "progc/lifeisahighway" ]
-#then
-#    echo "L'executable est présent."
-#else
-#    echo "L'executable n'est pas présent."
-#    if [ $? -eq 0 ] # recup la valeur de retour de make
-#    then
-#    	echo "Compilation réussie."
-#    else
-#    	echo "La compilation a échoué."
-#    	exit 5
-#    fi
-#fi
+if [ -e "progc/lifeisahighway" ]
+then
+	echo " "
+    echo "L'executable est présent."
+else
+	echo " "
+    echo "L'executable n'est pas présent. Compilation en cours..."
+	make -C progc -f makefile
+    if [ $? -eq 0 ] # recup la valeur de retour de make
+    then
+    	echo "Compilation réussie."
+    else
+    	echo "La compilation a échoué."
+    	exit 5
+    fi
+fi
 
 echo " "
 echo "traitement en cours..." #juste esthétique :)
@@ -258,8 +260,6 @@ traitement_s() {
 	export ARG1="images/traitement-s.png" # variables d'env pour gnuplot (fichier de sortie et fichier à traiter)
 	export ARG2="temp/stemp2.csv"
 	gnuplot gnuplot/traitement-s.gp
-
-
 }
 
 
