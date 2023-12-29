@@ -11,7 +11,7 @@ if [ -e "$1" ] # verifie que le chemin est bon et que le fichier étudié porte 
 then
     if [ "$1" == "data/data.csv" ]
     then
-        echo "Le chemin est bon."
+        echo "Le chemin "$1" est bon."
     else
         echo "Le chemin existe mais n'est pas le chemin de data.csv."
         exit 2
@@ -35,7 +35,16 @@ do
 		"-t") t=1;;
 		"-l") l=1;;
 		"-s") s=1;;
-		"-h") echo "Options qui existent : -d1, -d2, -l, -t, -s"
+		"-h")
+		echo "Options disponibles :"
+		echo "-d1 : Affiche les conducteurs avec le plus de trajets"
+		echo "-d2 : Affiche les conducteurs avec la plus grande distance parcourue"
+		echo "-t : Affiche les villes les plus traversées"
+		echo "-l : Affiche les trajets les plus longs"
+		echo "-s : Affiche des statistiques sur les étapes des trajets"
+		echo "-h : Affiche cette aide"
+		echo "Exemple d'utilisation une fois dans le bon répertoire : bash script.sh data/data.csv -d1 -d2"
+		echo "Plus de détails : https://github.com/Eraguzy/life-is-a-highway#life-is-a-highway-"
 		exit 4;; # quitte si y'a -h
 		*) echo " ${!i} n'existe pas";;
 	esac

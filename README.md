@@ -32,11 +32,11 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 
 `-t` : affiche un histogramme vertical regroupé montrant les 10 **villes les plus traversées**, avec en abscisse le nom des villes, et en ordonnée le nombre de trajets. Le graphique montre le nombre de traversées ainsi que le nombre de fois où cette ville est un point de départ.
 
-`-s` : affiche un **graphique min-max-moyenne** des 50 trajets les plus longs, avec en abscisse les identifiants des trajets, et en ordonnée les distances (km) (mini, moyenne, maxi).
+`-s` : affiche un **graphique min-max-moyenne** décrivant les étapes des 50 trajets avec la plus grande amplitude "distance maxi - distance mini", avec en abscisse les identifiants des trajets, et en ordonnée les distances (km) (mini, moyenne, maxi).
 
 ## Prérequis ☝️
 
-- avoir **gcc**, **Gnuplot**, **bash** installés sur votre appareil
+- avoir [gcc](https://doc.ubuntu-fr.org/gcc), [Gnuplot](https://doc.ubuntu-fr.org/gnuplot), [bash](https://howtoinstall.co/package/bash) installés sur votre appareil
 
 ## Bugs et limitations 👾
 
