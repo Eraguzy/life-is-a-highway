@@ -1,13 +1,13 @@
 #include "header.h"
 
-void infixepours(Arbre* arbre, int* count){
+void infixepours(Arbre* arbre, FILE* fgnu, int* count){ //parcours inversé infixe
     if(arbre != NULL){
-        infixepours(arbre->droite, count);
-        if (*count < 50){
-            printf("Ligne %d : %s\n", *count, arbre->csv);
+        infixepours(arbre->droite, fgnu, count);
+        if (*count < 51){ //de 1 à 51
+            fprintf(fgnu, "%s", arbre->csv);
             (*count)++;
         }
-        infixepours(arbre->gauche, count);
+        infixepours(arbre->gauche, fgnu, count);
     }
 }
 
@@ -25,10 +25,8 @@ void traitement_s(int argc, char* argv[]){
     int* h = malloc(sizeof(int));
     int count = 1;
 
-    while (fgets(line, sizeof(line), fichier1) != NULL) {
+    while (fgets(line, sizeof(line), fichier1) != NULL) { //remplir avl avec le fichier
         // mettre la ligne dans le noeud
-        printf("Ligne lue : %s", line);
-
         int id;
         float min, max, moy;
 
@@ -40,8 +38,16 @@ void traitement_s(int argc, char* argv[]){
         } 
         arbre = ajoutabr(arbre, difference, line, h); //remplit avl
     }
-    infixepours(arbre, &count);
+
+    FILE* fgnu = fopen("temp/stemp2.csv", "w"); //fichier de sortie
+    if (fgnu == NULL) {
+        printf("Erreur lors de l'ouverture du fichier");
+        exit(1);
+    }
+    infixepours(arbre, fgnu, &count); //sert à garder les 50 plus grands noeuds, on les met dans un fichier pour les gnuplotter
+
     fclose(fichier1);
+    fclose(fgnu);
 }
 
 void traitement_t(int argc, char* argv[]){

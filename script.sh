@@ -254,6 +254,19 @@ traitement_s() {
 	}' data/data.csv > temp/stemp.csv # part de data.csv et redirige en sortie vers un fichier temporaire
 
 	./progc/lifeisahighway S "$(readlink -f temp/stemp.csv)"
+
+	gnuplot << EOF
+	set terminal pngcairo enhanced font "arial,10" size 800,600
+	set output "graphique.png"
+
+	set title "Graphique min-max-moyenne"
+	set xlabel "Identifiants des trajets"
+	set ylabel "Distances en km"
+
+	plot "temp/stemp2.csv" using 1:2 with lines title "Minimum", \
+		'' using 1:4 with lines title "Moyenne", \
+		'' using 1:3 with lines title "Maximum"
+	EOF
 }
 
 

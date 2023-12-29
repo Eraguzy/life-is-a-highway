@@ -22,4 +22,5 @@
     Arbre* equilibreravl(Arbre* a);
     void traitement_t(int argc, char* argv[]);
     void traitement_s(int argc, char* argv[]);
+    void infixepours(Arbre* arbre, FILE* fgnu, int* count);
 #endif
