@@ -33,8 +33,6 @@ void traitement_s(int argc, char* argv[]){
         if (sscanf(line, "%d;%f;%f;%f", &id, &min, &max, &moy) == 4) {
             //différence entre la 3e et la 2e colonne
             difference = max - min;
-            
-            printf("Différence entre la 3e et la 2e colonne : %.5f\n", difference);
         } 
         arbre = ajoutabr(arbre, difference, line, h); //remplit avl
     }
