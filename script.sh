@@ -184,9 +184,9 @@ traitement_l() {
 	export ARG1="$(pwd)/images/histogramme_l.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/ltemp.csv"
 
-	gnuplot gnuplot/histogramme_l.gp #crée puis affiche graphique
+	gnuplot gnuplot/histogramme_l.gp #crée le graphique
 	
-	xdg-open "images/histogramme_l.png"
+	xdg-open "images/histogramme_l.png" #ouverture de l'image
 }
 
 if [ "$l" -eq 1 ]
@@ -209,9 +209,9 @@ traitement_d2() {
 
     gnuplot gnuplot/histogramme_d2.gp #créer histogramme
     
-    convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png
+    convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png #rotation de l'image
 
-    xdg-open "images/histogramme_d2.png"
+    xdg-open "images/histogramme_d2.png" #ouverture de l'image
 }
 
 if [ "$d2" -eq 1 ]
@@ -259,6 +259,7 @@ traitement_s() {
 
 	export ARG1="images/traitement-s.png" # variables d'env pour gnuplot (fichier de sortie et fichier à traiter)
 	export ARG2="temp/stemp2.csv"
+ 	#creation du graphique et ouverture de l'image 
 	gnuplot gnuplot/traitement-s.gp
  	xdg-open "images/traitement-s.png"
 }
@@ -272,6 +273,7 @@ fi
 #TRAITEMENT T (pour l'instant pas vrm les memes valeurs que le prof mais l'ordre est bon)
 traitement_t() {
 	awk -F';' '{
+ 	#on compte le nombre de trajets différents par ville, et le nombre de fois ou une ville a été l'étape 1 d'un trajet
 		if (!villes_deja_comptees[$1, $3]) {
 			villes_par_trajet[$3]++;
 			villes_deja_comptees[$1, $3] = 1;
@@ -290,14 +292,15 @@ traitement_t() {
 			print ville ";" villes_par_trajet[ville] ";" etape_1[ville]
 		}
 	}' data/data.csv > temp/tempt.csv
-	
+ 
+	#utilisation d'un programme c afin de trier le fichier tempt.csv
 	./progc/lifeisahighway T "$(readlink -f temp/tempt.csv)"
  	export ARG1="$(pwd)/images/histogramme_t.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/tempt3.csv"
 
-	gnuplot gnuplot/histogramme_t.gp #crée puis affiche graphique
+	gnuplot gnuplot/histogramme_t.gp #crée le graphique
 	
-	xdg-open "images/histogramme_t.png"
+	xdg-open "images/histogramme_t.png" #ouverture de l'image
 
 }
 
