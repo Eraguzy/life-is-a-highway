@@ -1,13 +1,16 @@
 #include "header.h"
 
+//fonction qui retourne la valeur la plus grande
 int max(int a, int b){
     return a>=b ? a:b;
 }
 
+//fonction qui retourne la valeur la plus petite
 int min(int a, int b){
     return a<=b ? a:b;
 }
 
+//fonction qui crée un noeud de l'arbre et l'initialise avec les données des paramètres de la fonction
 Arbre* creerarbre(float x, int y, char* c){
     Arbre* new = malloc(sizeof(Arbre));
     if (new == NULL){
@@ -29,6 +32,7 @@ Arbre* creerarbre(float x, int y, char* c){
     return new;
 }
 
+//fonction qui rajoute un noeud dans l'arbre, en respectant le principe des avl
 Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     if(a == NULL){
         *h = 1;
@@ -59,6 +63,7 @@ Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     return a;
 }
 
+//même fonction mais en ajoutant les noeuds en fonction d'une chaine de caractère (pour le tri alphabétique)
 Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h){
     if(a == NULL){
         *h = 1;
@@ -89,6 +94,7 @@ Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h){
     return a;
 }
 
+//fonction qui permet de faire une rotation à gauche pour le rééquilibrage
 Arbre* rotationgauche(Arbre* a){ 
     if(a == NULL){
         return a;
@@ -106,6 +112,7 @@ Arbre* rotationgauche(Arbre* a){
     return a;
 }
 
+//fonction qui permet de faire une rotation à droite pour le rééquilibrage
 Arbre* rotationdroite(Arbre* a){ 
     if(a == NULL){
         return a;
@@ -123,6 +130,7 @@ Arbre* rotationdroite(Arbre* a){
     return a;
 }
 
+//fonction qui fait une double rotation gauche
 Arbre* doublegauche(Arbre* a){
     if(a == NULL){
         return NULL;
@@ -131,6 +139,7 @@ Arbre* doublegauche(Arbre* a){
     return rotationgauche(a);
 }
 
+//fonction qui fait une double rotation droite
 Arbre* doubledroite(Arbre* a){
     if(a == NULL){
         return NULL;
@@ -139,6 +148,7 @@ Arbre* doubledroite(Arbre* a){
     return rotationdroite(a);
 }
 
+//fonction qui rééquilibre l'arbre, en fonction du facteur d'équilibre du noeud
 Arbre* equilibreravl(Arbre* a){
     if(a == NULL){
         return NULL;
@@ -162,6 +172,7 @@ Arbre* equilibreravl(Arbre* a){
     return a;   
 }
 
+//fonction qui libère l'arbre c'est à dire tous les noeuds de l'arbre
 void libererTousMesCopains(Arbre* a) {
     if (a != NULL) {
         libererTousMesCopains(a->gauche);
