@@ -46,6 +46,7 @@ void traitement_s(int argc, char* argv[]){
 
     fclose(fichier1);
     fclose(fgnu);
+    libererTousMesCopains(arbre);
 }
 
 void infixeinversepourt(Arbre* arbre, FILE* fgnu, int* count){ //parcours inversé infixe
@@ -124,4 +125,8 @@ void traitement_t(int argc, char* argv[]){
     
 	fclose(fichier1);
 	fclose(fgnu2);
+	
+	libererTousMesCopains(arbre);
+	libererTousMesCopains(arbre2);
+	
 }
