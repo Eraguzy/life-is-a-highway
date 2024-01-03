@@ -155,7 +155,7 @@ traitement_d1() {
 	export ARG1="$(pwd)/images/histogramme_d1.png" #exportation pour gnuplot
 	export ARG2="$(pwd)/temp/d1temp2.csv"
 
-	gnuplot gnuplot/histogramme_horizontal.gp #generer histogramme
+	gnuplot gnuplot/histogramme_d1.gp #generer histogramme
 	
 	convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png
 
