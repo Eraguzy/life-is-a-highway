@@ -294,9 +294,9 @@ traitement_t() {
  	export ARG1="$(pwd)/images/histogramme_t.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/tempt2.csv"
 
-	gnuplot gnuplot/histogramme_t.gp #crée puis affiche graphique
+	gnuplot gnuplot/histogramme-t.gp #crée puis affiche graphique
 	
-	xdg-open "images/histogramme_t.png"
+	xdg-open "images/histogramme-t.png"
 
 }
 
