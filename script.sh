@@ -291,6 +291,12 @@ traitement_t() {
 	}' data/data.csv > temp/tempt.csv
 	
 	./progc/lifeisahighway T "$(readlink -f temp/tempt.csv)"
+ 	export ARG1="$(pwd)/images/histogramme_t.png" #export données vers gnuplot
+	export ARG2="$(pwd)/temp/tempt2.csv"
+
+	gnuplot gnuplot/histogramme_t.gp #crée puis affiche graphique
+	
+	xdg-open "images/histogramme_t.png"
 
 }
 
