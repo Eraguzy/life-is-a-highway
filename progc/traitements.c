@@ -1,6 +1,7 @@
 #include "header.h"
 
-void infixeinversepours(Arbre* arbre, FILE* fgnu, int* count){ //parcours inversé infixe
+//procédure qui va faire un parcours infixe inversé (tri décroissant) 
+void infixeinversepours(Arbre* arbre, FILE* fgnu, int* count){ 
     if(arbre != NULL){
         infixeinversepours(arbre->droite, fgnu, count);
         if (*count < 51){ //de 1 à 51
@@ -11,6 +12,7 @@ void infixeinversepours(Arbre* arbre, FILE* fgnu, int* count){ //parcours invers
     }
 }
 
+//procédure du traitement s qui prend en paramètre le fichier temporaire associé
 void traitement_s(int argc, char* argv[]){
     FILE* fichier1 = fopen(argv[2], "r");
     if (fichier1 == NULL) {
@@ -44,12 +46,14 @@ void traitement_s(int argc, char* argv[]){
     }
     infixeinversepours(arbre, fgnu, &count); //sert à garder les 50 plus grands noeuds, on les met dans un fichier pour ensuite générer notre graphique
 
+    //fermeture fichiers et libération mémoire
     fclose(fichier1);
     fclose(fgnu);
     libererTousMesCopains(arbre);
     free(h);
 }
 
+//procédure pour faire une parcours infixe inversé (tri croissant) et qui récup les 10 plus grandes valeurs 
 void infixeinversepourt(Arbre* arbre, FILE* fgnu, int* count){ //parcours inversé infixe
 	if(arbre != NULL){
 		infixeinversepourt(arbre->droite, fgnu, count);
@@ -70,7 +74,9 @@ void infixepourt(Arbre* arbre, FILE* fgnu2, int* count){ //parcours inversé inf
 	}
 }
 
+//procédure du traitement t qui prend en paramètre le fichier temporaire associé
 void traitement_t(int argc, char* argv[]){
+	//ouverture du fichier
 	FILE* fichier1 = fopen(argv[2], "r");
 	if (fichier1 == NULL) {
 		printf("Erreur lors de l'ouverture du fichier");
@@ -85,9 +91,10 @@ void traitement_t(int argc, char* argv[]){
 	int etape1;
 	float traversee;
 	char ville[100];
-	
-	while (fgets(line, sizeof(line), fichier1) != NULL) { //remplir avl avec le fichier
-	// mettre la ligne dans le noeud
+
+	//on remplit l'avl avec le fichier
+	while (fgets(line, sizeof(line), fichier1) != NULL) { 
+		// on met la ligne dans le noeud
 		sscanf(line, "%99[^;];%f;%d", ville, &traversee, &etape1);
 		arbre = ajoutabr(arbre, traversee, etape1, ville, h); //remplit avl
 	}
@@ -97,7 +104,8 @@ void traitement_t(int argc, char* argv[]){
 		printf("Erreur lors de l'ouverture du fichier");
 		exit(1);
 	}
-	infixeinversepourt(arbre, fgnu, &count); //sert à garder les 10 plus grands noeuds
+	//on prend les 10 plus grands noeuds
+	infixeinversepourt(arbre, fgnu, &count); 
 	
 	fclose(fgnu);
 	
@@ -122,11 +130,14 @@ void traitement_t(int argc, char* argv[]){
 		printf("Erreur lors de l'ouverture du fichier");
 		exit(1);
 	}
-	infixepourt(arbre2, fgnu2, &count); //sert à remettre dans l'ordre alphabétique
-    
+	//on remet dans l'odre alphabétique
+	infixepourt(arbre2, fgnu2, &count); 
+	
+    	//fermeture des fichiers
 	fclose(fichier1);
 	fclose(fgnu2);
 	
+	//libérations des arbres et pointeur
 	libererTousMesCopains(arbre);
 	libererTousMesCopains(arbre2);
 	free(h);
