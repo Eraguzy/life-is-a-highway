@@ -120,7 +120,7 @@ void traitement_t(int argc, char* argv[]){
 		printf("Erreur lors de l'ouverture du fichier");
 		exit(1);
 	}
-	infixepourt(arbre2, fgnu2, &count); //sert à remettre dans l'ordre alphabétique*/
+	infixepourt(arbre2, fgnu2, &count); //sert à remettre dans l'ordre alphabétique
     
 	fclose(fichier1);
 	fclose(fgnu2);
