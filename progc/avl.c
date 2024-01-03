@@ -8,7 +8,7 @@ int min(int a, int b){
     return a<=b ? a:b;
 }
 
-Arbre* creerarbre(float x, char* c){
+Arbre* creerarbre(float x, int y, char* c){
     Arbre* new = malloc(sizeof(Arbre));
     if (new == NULL){
         printf("erreur malloc\n");
@@ -23,21 +23,22 @@ Arbre* creerarbre(float x, char* c){
     new->droite = NULL;
     new->gauche = NULL;
     new->elmnt = x;
+    new->elmnt2 = y;
     strcpy(new->csv, c); //gestion spéciale pour le char
     new->eq = 0;
     return new;
 }
 
-Arbre* ajoutabr(Arbre* a, float x, char* c, int* h){
+Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     if(a == NULL){
         *h = 1;
-        return creerarbre(x, c);
+        return creerarbre(x, y, c);
     }
     if(x > a->elmnt){
-        a->droite = ajoutabr(a->droite, x, c, h);
+        a->droite = ajoutabr(a->droite, x, y, c, h);
     }
     if(x < a->elmnt){
-        a->gauche = ajoutabr(a->gauche, x, c, h);
+        a->gauche = ajoutabr(a->gauche, x, y, c, h);
         *h = -(*h);
     }
     else{
@@ -58,16 +59,16 @@ Arbre* ajoutabr(Arbre* a, float x, char* c, int* h){
     return a;
 }
 
-Arbre* ajoutabrchar(Arbre* a, float x, char* c, int* h){
+Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h){
     if(a == NULL){
         *h = 1;
-        return creerarbre(x, c);
+        return creerarbre(x, y, c);
     }
     if(strcmp(c, a->csv) > 0){ //comparaison de char
-        a->droite = ajoutabrchar(a->droite, x, c, h);
+        a->droite = ajoutabrchar(a->droite, x, y, c, h);
     }
     if(strcmp(c, a->csv) < 0){
-        a->gauche = ajoutabrchar(a->gauche, x, c, h);
+        a->gauche = ajoutabrchar(a->gauche, x, y, c, h);
         *h = -(*h);
     }
     else{
