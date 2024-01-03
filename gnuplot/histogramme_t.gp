@@ -13,6 +13,5 @@ set title "Option -t : Nb routes = f(Town)"
 set ylabel "NB ROUTES"
 set xlabel "TOWN NAMES"
 set xtics rotate by -45
-set key autotitle columnheader
 
 plot ARG2 using 2:xticlabels(1) title "Total routes", '' using 3 title "First town"
