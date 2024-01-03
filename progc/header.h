@@ -26,4 +26,5 @@
     void infixeinversepours(Arbre* arbre, FILE* fgnu, int* count);
     void infixeinversepourt(Arbre* arbre, FILE* fgnu, int* count);
     void infixepourt(Arbre* arbre, FILE* fgnu2, int* count);
+    void libererTousMesCopains(Arbre* arbre);
 #endif
