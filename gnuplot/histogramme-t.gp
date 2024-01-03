@@ -5,6 +5,7 @@ ARG2 = system("echo $ARG2")
 set terminal png size 1000,1000
 set output ARG1
 set datafile separator ";"
+set style fill solid
 set style data histograms
 set style histogram clustered
 set boxwidth 0.8
