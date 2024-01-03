@@ -184,7 +184,7 @@ traitement_l() {
 	export ARG1="$(pwd)/images/histogramme_l.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/ltemp.csv"
 
-	gnuplot gnuplot/histogramme_vertical.gp #crée puis affiche graphique
+	gnuplot gnuplot/histogramme_l.gp #crée puis affiche graphique
 	
 	xdg-open "images/histogramme_l.png"
 }
