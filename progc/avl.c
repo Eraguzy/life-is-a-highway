@@ -161,3 +161,13 @@ Arbre* equilibreravl(Arbre* a){
     }
     return a;   
 }
+
+void libererTousMesCopains(Arbre* a) {
+    if (a != NULL) {
+        libererTousMesCopains(a->gauche);
+        libererTousMesCopains(a->droite);
+        free(a->csv);
+        free(a);
+    }
+}
+
