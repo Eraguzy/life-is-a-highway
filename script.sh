@@ -260,6 +260,7 @@ traitement_s() {
 	export ARG1="images/traitement-s.png" # variables d'env pour gnuplot (fichier de sortie et fichier à traiter)
 	export ARG2="temp/stemp2.csv"
 	gnuplot gnuplot/traitement-s.gp
+ 	xdg-open "images/traitement-s.png"
 }
 
 
