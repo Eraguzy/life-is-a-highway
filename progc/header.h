@@ -19,7 +19,7 @@
     int max(int a, int b);
     Arbre* creerarbre(float x, int y, char* c);
     Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h); //tri selon h
-    int Comparaison(char* str1, char* str2);
+    int Comparaison(char* a, char* b);
     Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h); //tri selon c
     Arbre* equilibreravl(Arbre* a);
     void traitement_t(int argc, char* argv[]);
