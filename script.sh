@@ -272,8 +272,8 @@ fi
 
 #TRAITEMENT T (pour l'instant pas vrm les memes valeurs que le prof mais l'ordre est bon)
 traitement_t() {
+	#on compte le nombre de trajets différents par ville, et le nombre de fois ou une ville a été l'étape 1 d'un trajet
 	awk -F';' '{
- 	#on compte le nombre de trajets différents par ville, et le nombre de fois ou une ville a été l'étape 1 d'un trajet
 		if (!villes_deja_comptees[$1, $3]) {
 			villes_par_trajet[$3]++;
 			villes_deja_comptees[$1, $3] = 1;
