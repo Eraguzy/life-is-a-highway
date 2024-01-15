@@ -63,35 +63,62 @@ Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     return a;
 }
 
-//même fonction mais en ajoutant les noeuds en fonction d'une chaine de caractère (pour le tri alphabétique)
-Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h){
-    if(a == NULL){
-        *h = 1;
-        return creerarbre(x, y, c);
-    }
-    if(strcmp(c, a->csv) > 0){ //comparaison de char
-        a->droite = ajoutabrchar(a->droite, x, y, c, h);
-    }
-    if(strcmp(c, a->csv) < 0){
-        a->gauche = ajoutabrchar(a->gauche, x, y, c, h);
-        *h = -(*h);
-    }
-    else{
-        *h = 0;
-        return a;
+int Comparaison(char* str1, char* str2) {
+    while (*str1 != '\0' && *str2 != '\0') {
+        if (*str1 == ' ' && *str2 != ' ') {
+            return 1;  // str1 has space, consider it greater
+        } else if (*str1 != ' ' && *str2 == ' ') {
+            return -1;  // str2 has space, consider it greater
+        } else if (*str1 > *str2) {
+            return 1;  // str1 is greater
+        } else if (*str1 < *str2) {
+            return -1;  // str2 is greater
+        }
+
+        // Move to the next character
+        str1++;
+        str2++;
     }
 
-    if(*h != 0){
-        a->eq = a->eq + *h;
-        a = equilibreravl(a);
-        if(a->eq == 0){
-            *h = 0;
-        }
-        else {
-            *h = 1;
-        }
+    // Handle cases where one string is a prefix of the other
+    if (*str1 == '\0' && *str2 != '\0') {
+        return -1;  // str2 is greater
+    } else if (*str1 != '\0' && *str2 == '\0') {
+        return 1;   // str1 is greater
     }
-    return a;
+
+    return 0;  // Both strings are equal
+}
+
+//même fonction mais en ajoutant les noeuds en fonction d'une chaine de caractère (pour le tri alphabétique)
+Arbre* ajoutabrchar(Arbre* a, float x, int y, char* c, int* h){
+	if(a == NULL){
+		*h = 1;
+		return creerarbre(x, y, c);
+	}
+	if (Comparaison(c, a->csv) > 0) {
+		a->droite = ajoutabrchar(a->droite, x, y, c, h);
+	}
+	if (Comparaison(c, a->csv) < 0) {
+		a->gauche = ajoutabrchar(a->gauche, x, y, c, h);
+		*h = -(*h);
+	}
+	else {
+		*h = 0;
+		return a;
+	}
+
+	if(*h != 0){
+		a->eq = a->eq + *h;
+		a = equilibreravl(a);
+		if(a->eq == 0){
+			*h = 0;
+		}
+		else {
+			*h = 1;
+		}
+	}
+	return a;
 }
 
 //fonction qui permet de faire une rotation à gauche pour le rééquilibrage
@@ -181,4 +208,3 @@ void libererTousMesCopains(Arbre* a) {
         free(a);
     }
 }
-
