@@ -63,31 +63,36 @@ Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     return a;
 }
 
-int Comparaison(char* str1, char* str2) {
-    while (*str1 != '\0' && *str2 != '\0') {
-        if (*str1 == ' ' && *str2 != ' ') {
-            return 1;  // str1 has space, consider it greater
-        } else if (*str1 != ' ' && *str2 == ' ') {
-            return -1;  // str2 has space, consider it greater
-        } else if (*str1 > *str2) {
-            return 1;  // str1 is greater
-        } else if (*str1 < *str2) {
-            return -1;  // str2 is greater
-        }
+int Comparaison(char* a, char* b) {
 
-        // Move to the next character
-        str1++;
-        str2++;
-    }
+	//On compare les deux chaines pour effectuer un tri lexicographique priorisant les lettres par rapport aux espaces
+	while (*a != '\0' && *b != '\0') {
+		if (*a == ' ' && *b != ' ') {
+			return 1;
+		} 
+		else if (*a != ' ' && *b == ' ') {
+			return -1;
+		}
+		else if (*a > *b) {
+            		return 1;
+		} 
+		else if (*a < *b) {
+			return -1;
+		}
+		a++;
+		b++;
+	}
 
-    // Handle cases where one string is a prefix of the other
-    if (*str1 == '\0' && *str2 != '\0') {
-        return -1;  // str2 is greater
-    } else if (*str1 != '\0' && *str2 == '\0') {
-        return 1;   // str1 is greater
-    }
+	//Si l'une des deux chaines est vide et qu'elles sont identiques jusqu'au dernier caractère comparé, on place la chaine vide en première
+	if (*a == '\0' && *b != '\0') {
+		return -1;
+	} 
+	else if (*a != '\0' && *b == '\0') {
+		return 1;
+	}
 
-    return 0;  // Both strings are equal
+	//Les deux chaines sont strictement identiques
+	return 0;
 }
 
 //même fonction mais en ajoutant les noeuds en fonction d'une chaine de caractère (pour le tri alphabétique)
