@@ -64,7 +64,6 @@ Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
 }
 
 int Comparaison(char* a, char* b) {
-
 	//On compare les deux chaines pour effectuer un tri lexicographique priorisant les lettres par rapport aux espaces
 	while (*a != '\0' && *b != '\0') {
 		if (*a == ' ' && *b != ' ') {
