@@ -40,7 +40,6 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 
 ## Bugs et limitations 👾
 
-/
-
+- Traitements `-s` et `-t` relativement longs (temps d'exécution divisé par deux lors de la réexécution)
 
 
