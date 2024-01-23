@@ -2,7 +2,7 @@
 
 //fonction qui retourne la valeur la plus grande
 int max(int a, int b){
-    return a>=b ? a:b;
+    return a>=b ? a:b; // a supérieur à b ? retourne a sinon b (similaire pour min)
 }
 
 //fonction qui retourne la valeur la plus petite
