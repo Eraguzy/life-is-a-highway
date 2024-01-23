@@ -63,34 +63,34 @@ Arbre* ajoutabr(Arbre* a, float x, int y, char* c, int* h){
     return a;
 }
 
-int Comparaison(char* a, char* b) {
-	//On compare les deux chaines pour effectuer un tri lexicographique priorisant les lettres par rapport aux espaces
-	while (*a != '\0' && *b != '\0') {
-		if (*a == ' ' && *b != ' ') {
+int Comparaison(char* a, char* b){
+	//on compare les deux chaines pour effectuer un tri lexicographique priorisant les lettres par rapport aux espaces
+	while (*a != '\0' && *b != '\0'){
+		if(*a == ' ' && *b != ' '){
 			return 1;
 		} 
-		else if (*a != ' ' && *b == ' ') {
+		else if(*a != ' ' && *b == ' '){
 			return -1;
 		}
-		else if (*a > *b) {
-            		return 1;
+		else if(*a > *b){
+            return 1;
 		} 
-		else if (*a < *b) {
+		else if(*a < *b){
 			return -1;
 		}
 		a++;
 		b++;
 	}
 
-	//Si l'une des deux chaines est vide et qu'elles sont identiques jusqu'au dernier caractère comparé, on place la chaine vide en première
-	if (*a == '\0' && *b != '\0') {
+	//si l'une des deux chaines est vide et qu'elles sont identiques jusqu'au dernier caractère comparé, on place la chaine vide en première
+	if(*a == '\0' && *b != '\0'){
 		return -1;
 	} 
-	else if (*a != '\0' && *b == '\0') {
+	else if(*a != '\0' && *b == '\0'){
 		return 1;
 	}
 
-	//Les deux chaines sont strictement identiques
+	//les deux chaines sont strictement identiques
 	return 0;
 }
 
@@ -142,7 +142,7 @@ Arbre* rotationgauche(Arbre* a){
     a = pivot;
     return a;
 }
-
+ 
 //fonction qui permet de faire une rotation à droite pour le rééquilibrage
 Arbre* rotationdroite(Arbre* a){ 
     if(a == NULL){
