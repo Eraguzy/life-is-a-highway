@@ -48,7 +48,8 @@ do
 		echo "Exemple d'utilisation une fois dans le bon répertoire : bash script.sh data/data.csv -d1 -d2"
 		echo "Plus de détails : https://github.com/Eraguzy/life-is-a-highway#life-is-a-highway-"
 		exit 4;; # quitte si y'a -h
-		*) echo " ${!i} n'existe pas";;
+		*) echo " ${!i} n'existe pas."
+		exit 5;; #quitte si commande invalide
 	esac
 done
 
@@ -110,13 +111,13 @@ then
 else
 	echo " "
     echo "L'executable n'est pas présent. Compilation en cours..."
-	make -C progc -f makefile
+	make -s -C progc -f makefile # -c pour entrer dans le dossier progc, -s pour silent
     if [ $? -eq 0 ] # recup la valeur de retour de make
     then
     	echo "Compilation réussie."
     else
     	echo "La compilation a échoué."
-    	exit 5
+    	exit 6
     fi
 fi
 
@@ -126,7 +127,7 @@ echo " "
 
 mesurer_temps_execution() {
     local start_time=$(date +%s) # temps de depart
-    $1 # Appelez la fonction passée en paramètre
+    $1 # appelle la fonction passée en paramètre
     local end_time=$(date +%s) # temps de fin
     local elapsed_time=$(echo "$end_time - $start_time" | bc) #diff entre fin et debut (bc car shell ne prend pas en compte les float de base)
     echo "La fonction a pris $elapsed_time secondes pour s'exécuter."
@@ -138,7 +139,7 @@ traitement_d1() {
 	
 	cut -d';' -f6 temp/etape1.csv > temp/d1temp.csv 
 	awk '{
-		# Compter les occurrences de chaque nom (sixième colonne)
+		# compte les occurrences de chaque nom (sixième colonne)
 		count[$i]++
 	}
 	END {
