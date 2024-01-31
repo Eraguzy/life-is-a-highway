@@ -36,7 +36,7 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 
 ## Prérequis ☝️
 
-- avoir [gcc](https://doc.ubuntu-fr.org/gcc), [Gnuplot](https://doc.ubuntu-fr.org/gnuplot), [bash](https://howtoinstall.co/package/bash) installés sur votre appareil
+- avoir [gcc](https://doc.ubuntu-fr.org/gcc), [Gnuplot](https://doc.ubuntu-fr.org/gnuplot), [bash](https://howtoinstall.co/package/bash), [make](https://linuxhint.com/install-make-ubuntu/) installés sur votre appareil
 
 ## Bugs et limitations 👾
 
