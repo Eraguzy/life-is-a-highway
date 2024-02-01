@@ -172,15 +172,14 @@ fi
 #TRAITEMENT L 
 traitement_l() {
         # Utiliser awk pour calculer la somme des distances par trajet
-        cut -d";" -f1,5 data/data.csv >temp/cut.csv
 	LC_NUMERIC="C" awk -F";" '{
-            distance[$1] +=$2
+            distance[$1] +=$5
 	}
         END {
             for (trajet in distance) {
             	printf trajet ";" distance[trajet] "\n"
             }      
-	}' temp/cut.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv #garde les 10 premiers par somme de distance, garde les 10 premiers et trie par id trajet
+	}' data/data.csv |  sort -t";" -k2 -n -r | head -n10  | sort -t";" -k1 -n  > temp/ltemp.csv #garde les 10 premiers par somme de distance, garde les 10 premiers et trie par id trajet
 	
 	export ARG1="$(pwd)/images/histogramme_l.png" #export données vers gnuplot
 	export ARG2="$(pwd)/temp/ltemp.csv"
@@ -196,14 +195,13 @@ then
 fi
 
 traitement_d2() {
-    cut -d";" -f5,6 data/data.csv > temp/cut.csv # garde les noms et les conducteurs
     LC_NUMERIC="C" awk -F";" '{ # calcule les sommes des etapes
-        distance[$2] += $1
+        distance[$6] += $5
     }
     END {
         for (cond in distance)
              print distance[cond] ";" cond;
-    }' temp/cut.csv | sort -t";" -k1 -n -r | head -n10 > temp/d2temp.csv #garde les 10 distances les + longues
+    }' data/data.csv | sort -t";" -k1 -n -r | head -n10 > temp/d2temp.csv #garde les 10 distances les + longues
 
     export ARG1="$(pwd)/images/histogramme_d2.png" #export pour gnuplot
     export ARG2="$(pwd)/temp/d2temp.csv"
