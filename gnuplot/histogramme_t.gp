@@ -8,7 +8,7 @@ set datafile separator ";"
 set style fill solid
 set style data histograms
 set style histogram clustered
-set boxwidth 0.8
+set boxwidth 2
 set title "Option -t : Nb routes = f(Town)"
 set ylabel "NB ROUTES"
 set xlabel "TOWN NAMES"
