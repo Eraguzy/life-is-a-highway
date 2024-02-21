@@ -4,7 +4,7 @@
 
 **Life is a highway** est un outil de traitement de données pour aider à gérer la logistique des sociétés de transport routier. Pour cela, il utilise les données d'un tableur suivant le chemin `data/data.csv`.
 
-> Plus de détails sur le projet [ici](https://github.com/Eraguzy/life-is-a-highway/blob/main/Projet_CY_Truck_preIng2_2023_2024_v1.0.1.pdf)
+> Plus de détails sur le projet [ici](https://github.com/Eraguzy/life-is-a-highway/blob/main/Projet_CY_Truck_preIng2_2023_2024_v1.0.2.pdf)
 
 ## Utilisation 💡
 
