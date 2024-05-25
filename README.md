@@ -2,7 +2,7 @@
 
 > Réalisé par Lucas Gournay, Louèva Beranger, Elias Chekhab (Trinôme-MI6-E)
 
-**Life is a highway** est un outil de traitement de données pour aider à gérer la logistique des sociétés de transport routier. Pour cela, il utilise les données d'un tableur suivant le chemin `data/data.csv`.
+**Life is a highway** est un outil de traitement de données sur Linux pour aider à gérer la logistique des sociétés de transport routier. Pour cela, il utilise les données d'un tableur suivant le chemin `data/data.csv`.
 
 > Plus de détails sur le projet [ici](https://github.com/Eraguzy/life-is-a-highway/blob/main/Projet_CY_Truck_preIng2_2023_2024_v1.0.2.pdf)
 
@@ -37,6 +37,7 @@ Les graphiques résultant de ces traitements seront stockés dans un dossier `im
 ## Prérequis ☝️
 
 - avoir [gcc](https://doc.ubuntu-fr.org/gcc), [Gnuplot](https://doc.ubuntu-fr.org/gnuplot), [bash](https://howtoinstall.co/package/bash), [make](https://linuxhint.com/install-make-ubuntu/) installés sur votre appareil
+- ce projet a été développé pour Ubuntu/Debian, il ne fonctionnera peut-être pas sur d'autres distributions Linux !
 
 ## Bugs et limitations 👾
 
